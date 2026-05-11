@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
-// use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\PendudukController;
+use Illuminate\Support\Facades\Route;
 
 // Halaman login (GET)
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -22,12 +22,26 @@ Route::middleware(['auth'])->group(function () {
         return view('hasil.index');
     })->name('hasil.index');
 
-    // halaman klasifikasi
-    Route::get('/klasifikasi', function () {
-        return view('klasifikasi.index');
-    })->name('klasifikasi.index');
+    // Halaman Klasifikasi
+    // Route::get('/klasifikasi', function () {
+    //     return view('klasifikasi.index');
+    // })->name('klasifikasi.index');
 
-    // // Route Profile
+    // --- FITUR KELOLA PENDUDUK ---
+    // Menampilkan daftar penduduk
+    Route::get('/penduduk', [PendudukController::class, 'index'])->name('penduduk.index');
+
+    // Simpan data manual
+    Route::post('/penduduk/store', [PendudukController::class, 'store'])->name('penduduk.store');
+
+    // Import file Excel/CSV
+    Route::post('/penduduk/import', [PendudukController::class, 'import'])->name('penduduk.import');
+
+    // Hapus data
+    Route::delete('/penduduk/{id}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
+    // -----------------------------
+
+    // Route Profile (Jika nanti diaktifkan kembali)
     // Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     // Route::put('/profile', [ProfileController::class, 'updatePassword'])->name('profile.update');
 });
