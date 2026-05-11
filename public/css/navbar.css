@@ -1,0 +1,80 @@
+:root {
+    --bg-navbar: #ffffff;
+    --text-main: #000000;
+    --text-sub: #555555;
+    --border-color: #dddddd;
+    --accent-red: #a30000;
+}
+
+.navbar-container {
+    position: fixed;
+    top: 0;
+    left: 320px; /* sejajar dengan sidebar */
+    width: calc(100% - 320px);
+    z-index: 1000;
+}
+.navbar-container {
+    width: 100%;
+    height: 75px;
+    background-color: var(--bg-navbar);
+    border-bottom: 1.5px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-content-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.close-btn {
+    font-size: 26px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+}
+
+.header-text .main-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.header-text .sub-title {
+    font-size: 13px;
+    margin: 2px 0 0 0;
+    color: var(--text-sub);
+}
+
+.nav-content-right {
+    display: flex;
+    align-items: center;
+}
+
+.logout-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    border: 1.5px solid var(--accent-red);
+    color: var(--accent-red);
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-action:hover {
+    background-color: var(--accent-red);
+    color: #ffffff;
+}
