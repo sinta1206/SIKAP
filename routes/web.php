@@ -40,6 +40,10 @@ Route::middleware(['auth'])->group(function () {
     // Proses menjalankan mesin klasifikasi (POST karena mengubah data di DB)
     Route::post('/klasifikasi/jalankan', [KlasifikasiController::class, 'jalankan'])->name('klasifikasi.run');
 
+    // 3. HASIL KLASIFIKASI (Tampilan Akhir & Export)
+    Route::get('/hasil', [HasilController::class, 'index'])->name('hasil.index');
+    Route::get('/hasil/export', [HasilController::class, 'export'])->name('hasil.export');
+
     // Route Profile (Jika nanti diaktifkan kembali)
     // Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     // Route::put('/profile', [ProfileController::class, 'updatePassword'])->name('profile.update');
