@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\KlasifikasiController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman login (GET)
@@ -18,15 +19,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/hasil', function () {
-        return view('hasil.index');
-    })->name('hasil.index');
-
-    // Halaman Klasifikasi
-    // Route::get('/klasifikasi', function () {
-    //     return view('klasifikasi.index');
-    // })->name('klasifikasi.index');
-
     // --- FITUR KELOLA PENDUDUK ---
     // Menampilkan daftar penduduk
     Route::get('/penduduk', [PendudukController::class, 'index'])->name('penduduk.index');
@@ -40,6 +32,13 @@ Route::middleware(['auth'])->group(function () {
     // Hapus data
     Route::delete('/penduduk/{id}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
     // -----------------------------
+
+    // --- FITUR KLASIFIKASI PEMILU ---
+    // Halaman utama klasifikasi (menampilkan kriteria & ringkasan)
+    Route::get('/klasifikasi', [KlasifikasiController::class, 'index'])->name('klasifikasi.index');
+
+    // Proses menjalankan mesin klasifikasi (POST karena mengubah data di DB)
+    Route::post('/klasifikasi/jalankan', [KlasifikasiController::class, 'jalankan'])->name('klasifikasi.run');
 
     // Route Profile (Jika nanti diaktifkan kembali)
     // Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
