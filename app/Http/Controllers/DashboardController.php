@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,12 +10,27 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        //Ambil data user yang sedang login
         $user = Auth::user();
 
-        // Kirim data ke view sesuai variabel yang dibutuhkan di Blade Anda
-        return view('dashboard', [
-            'name' => $user->username, // Menggunakan username sebagai nama
-            'role' => $user->role      // 'pegawai_desa' atau 'panitia_pemilu'
-        ]);
+        //Tentukan sebutan/panggilan dinamis berdasarkan role akun
+        if ($user->role == 'pegawai_desa') {
+            $panggilan = 'Pegawai Desa';
+        } elseif ($user->role == 'panitia_pemilu') {
+            $panggilan = 'Panitia Pemilu';
+        } else {
+            $panggilan = $user->username; // Fallback jika ada role lain
+        }
+
+        //Mengambil hitungan data penduduk untuk komponen Card
+        $totalData = Penduduk::count();
+        $layak = Penduduk::where('hak_pilih', 'Layak')->count();
+        $tidakLayak = Penduduk::where('hak_pilih', 'Tidak Layak')->count();
+
+        // Menghitung persentase kelayakan tingkat partisipasi
+        $persentaseLayak = $totalData > 0 ? round(($layak / $totalData) * 100) : 0;
+
+        //Kirim variabel panggilan ke halaman view dashboard
+        return view('dashboard', compact('totalData', 'layak', 'tidakLayak', 'persentaseLayak', 'panggilan'));
     }
 }

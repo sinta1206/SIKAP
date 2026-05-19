@@ -11,15 +11,12 @@ class HasilController extends Controller
 {
     public function index(Request $request)
     {
-        // Query untuk Cek apakah sudah ada penduduk yang diklasifikasi
         $sudahKlasifikasi = Penduduk::whereNotNull('hak_pilih')->exists();
 
-        // Jika belum ada hasil, tampilkan halaman "Empty State"
         if (!$sudahKlasifikasi) {
             return view('hasil.empty');
         }
 
-        // Jika sudah ada, siapkan Query untuk tabel
         $query = Penduduk::query();
 
         // Fitur Pencarian (Nama atau NIK)
@@ -35,7 +32,7 @@ class HasilController extends Controller
             $query->where('gender', $request->gender);
         }
 
-        // Fitur Filter Status Kelayakan (Layak/Tidak Layak)
+        // Fitur Filter Status Kelayakan
         if ($request->filled('status')) {
             $query->where('hak_pilih', $request->status);
         }
@@ -47,13 +44,67 @@ class HasilController extends Controller
         $layak = $data->where('hak_pilih', 'Layak')->count();
         $tidakLayak = $data->where('hak_pilih', 'Tidak Layak')->count();
 
-        //Arahkan ke view berdasarkan Role
         $viewPath = (Auth::user()->role == 'pegawai_desa') ? 'hasil.pegawai.index' : 'hasil.panitia.index';
 
         return view($viewPath, compact('data', 'totalData', 'layak', 'tidakLayak'));
     }
 
-    // Fungsi Unduh CSV (Hanya data yang sudah ada hasil klasifikasinya)
+    //FITUR TAMBAH & EDIT OLEH PEGAWAI
+
+    public function create()
+    {
+        return view('hasil.pegawai.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nik' => 'required|unique:penduduks,nik',
+            'nama' => 'required',
+            'umur' => 'required|numeric',
+            'gender' => 'required',
+            'status_kawin' => 'required',
+            'kewarganegaraan' => 'required',
+            'domisili' => 'required',
+            'pekerjaan' => 'required',
+            'hak_pilih' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        Penduduk::create($validated);
+
+        return redirect()->route('hasil.index')->with('success', 'Data berhasil ditambahkan.');
+    }
+
+    public function edit($id)
+    {
+        $penduduk = Penduduk::findOrFail($id);
+        return view('hasil.pegawai.edit', compact('penduduk'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $penduduk = Penduduk::findOrFail($id);
+
+        $validated = $request->validate([
+            'nik' => 'required|unique:penduduks,nik,' . $id,
+            'nama' => 'required',
+            'umur' => 'required|numeric',
+            'gender' => 'required',
+            'status_kawin' => 'required',
+            'kewarganegaraan' => 'required',
+            'domisili' => 'required',
+            'pekerjaan' => 'required',
+            'hak_pilih' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        $penduduk->update($validated);
+
+        return redirect()->route('hasil.index')->with('success', 'Data hasil klasifikasi berhasil diperbarui.');
+    }
+
+    // FITUR UNDUH CSV
     public function export()
     {
         $list = Penduduk::whereNotNull('hak_pilih')->get();
@@ -67,7 +118,8 @@ class HasilController extends Controller
                 'Status Kawin'    => $p->status_kawin,
                 'Kewarganegaraan' => $p->kewarganegaraan,
                 'Domisili'        => $p->domisili,
-                'Hasil'           => $p->hak_pilih,
+                'Status'          => $p->hak_pilih,
+                'Keterangan'      => $p->keterangan,
             ];
         });
     }

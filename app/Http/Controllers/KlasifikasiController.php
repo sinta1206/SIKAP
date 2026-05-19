@@ -29,45 +29,49 @@ class KlasifikasiController extends Controller
         $penduduks = Penduduk::all();
 
         foreach ($penduduks as $p) {
-            // Logika Klasifikasi (Hardcoded di Backend)
             $isLayak = true;
+            $alasan = []; // Tempat menampung alasan jika tidak layak
 
-           // 1. Kriteria Umur & Perkawinan
-        if (!($p->umur >= 17 || $p->status_kawin === 'Kawin' || $p->status_kawin === 'Pernah Kawin')) {
-            $isLayak = false;
-        }
+            // 1. Kriteria Umur & Perkawinan
+            if (!($p->umur >= 17 || $p->status_kawin === 'Kawin' || $p->status_kawin === 'Pernah Kawin')) {
+                $isLayak = false;
+                $alasan[] = 'Umur < 17 thn & Belum Menikah';
+            }
 
-        // 2. Kriteria WNI
-        if ($p->kewarganegaraan !== 'WNI') {
-            $isLayak = false;
-        }
+            // 2. Kriteria WNI
+            if ($p->kewarganegaraan !== 'WNI') {
+                $isLayak = false;
+                $alasan[] = 'Bukan WNI';
+            }
 
-        // 3. Kriteria Status Hidup
-        if ($p->status_hidup !== 'Hidup') {
-            $isLayak = false;
-        }
+            // 3. Kriteria Status Hidup
+            if ($p->status_hidup !== 'Hidup') {
+                $isLayak = false;
+                $alasan[] = 'Sudah Meninggal';
+            }
 
-        // 4. Kriteria Pekerjaan (TNI/Polri Tidak Boleh Memilih)
-        // Kita gunakan strtoupper agar tidak sensitif terhadap huruf besar/kecil
-        $pekerjaan = strtoupper(trim($p->pekerjaan));
-        if ($pekerjaan === 'TNI' || $pekerjaan === 'POLRI' || $pekerjaan === 'POLISI') {
-            $isLayak = false;
-        }
+            // 4. Kriteria Pekerjaan (TNI/Polri)
+            $pekerjaan = strtoupper(trim($p->pekerjaan));
+            if ($pekerjaan === 'TNI' || $pekerjaan === 'POLRI' || $pekerjaan === 'POLISI') {
+                $isLayak = false;
+                $alasan[] = 'Anggota Aktif ' . $pekerjaan;
+            }
 
-        // 5. Kriteria Domisili
-        if ($p->domisili !== 'Desa Ilie') {
-            $isLayak = false;
-        }
+             // 5. Kriteria Hak Pilih Dicabut secara Hukum (Ditinjau dari kolom internal)
+            if ($p->hak_pilih_internal === 'Dicabut') {
+                $isLayak = false;
+                $alasan[] = 'Hak Pilih Dicabut Hukum';
+            }
 
-        // 6. Hak Pilih Tidak Dicabut (Opsional, jika ada kolom status hukum)
-        if ($p->hak_pilih_internal === 'Dicabut') {
-            $isLayak = false;
-        }
+            // Tentukan hasil akhir
+            $statusAkhir = $isLayak ? 'Layak' : 'Tidak Layak';
+            $keteranganAkhir = $isLayak ? '-' : implode(', ', $alasan);
 
-        // Update status ke database
-        $p->update([
-            'hak_pilih' => $isLayak ? 'Layak' : 'Tidak Layak'
-        ]);
+            // Update ke database
+            $p->update([
+                'hak_pilih'  => $statusAkhir,
+                'keterangan' => $keteranganAkhir
+            ]);
     }
 
         return redirect()->back()->with('success', 'Proses klasifikasi otomatis selesai!');

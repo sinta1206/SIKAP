@@ -7,135 +7,316 @@
 
 @section('content')
 
-<div class="container">
+<div class="hasil-page">
 
-    <header>
-        <div class="header-left">
-            <h1>Hasil Klasifikasi</h1>
-            <p class="subtitle">Data pemilih hasil klasifikasi otomatis</p>
-        </div>
+    <div class="container">
 
-        <div class="header-right">
-            <button class="btn btn-light">
-                <i class="fas fa-file-export"></i> Unduh CSV
-            </button>
-            <button class="btn btn-red">
-                Cetak
-            </button>
-        </div>
-    </header>
+        {{-- HEADER --}}
+        <header class="hasil-header">
 
-    <!-- Statistik -->
-    <div class="stats-grid">
-        <div class="stat-mini-card">
-            <div class="mini-icon red-bg"><i class="fas fa-clipboard-list"></i></div>
-            <div>
-                <small>Total Data</small>
-                <h3>{{ count($data ?? []) }}</h3>
+            <div class="header-left">
+
+                <h1>Hasil Klasifikasi</h1>
+
+                <p class="subtitle">
+                    Data hasil klasifikasi pemilih otomatis
+                </p>
+
             </div>
-        </div>
 
-        <div class="stat-mini-card">
-            <div class="mini-icon green-bg"><i class="fas fa-check"></i></div>
-            <div>
-                <small>Layak</small>
-                <h3 class="green-text">
-                    {{ collect($data ?? [])->where('status', 'Layak')->count() }}
-                </h3>
+            <div class="header-right">
+
+
+
+                {{-- EXPORT CSV --}}
+                <a href="{{ route('hasil.export') }}"
+                   class="btn btn-green">
+
+                    <i class="fas fa-file-export"></i>
+                    Unduh CSV
+
+                </a>
+
             </div>
-            <span class="badge green-badge">
-                {{ count($data ?? []) > 0 ? round((collect($data)->where('status','Layak')->count()/count($data))*100) : 0 }}%
-            </span>
-        </div>
 
-        <div class="stat-mini-card">
-            <div class="mini-icon orange-bg"><i class="fas fa-times"></i></div>
-            <div>
-                <small>Tidak Layak</small>
-                <h3 class="orange-text">
-                    {{ collect($data ?? [])->where('status', 'Tidak Layak')->count() }}
-                </h3>
+        </header>
+
+        {{-- CARD STATISTIK --}}
+        <div class="stats-grid">
+
+            {{-- TOTAL --}}
+            <div class="stat-mini-card">
+
+                <div class="mini-icon red-bg">
+                    <i class="fas fa-database"></i>
+                </div>
+
+                <div>
+                    <small>Total Data</small>
+                    <h3 id="totalStat">
+                        {{ $totalData }}
+                    </h3>
+                </div>
+
             </div>
-            <span class="badge orange-badge">
-                {{ count($data ?? []) > 0 ? round((collect($data)->where('status','Tidak Layak')->count()/count($data))*100) : 0 }}%
-            </span>
+
+            {{-- LAYAK --}}
+            <div class="stat-mini-card">
+
+                <div class="mini-icon green-bg">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <div>
+                    <small>Layak</small>
+                    <h3>
+                        {{ $layak }}
+                    </h3>
+                </div>
+
+                <span class="badge green-badge">
+
+                    {{ $totalData > 0 ? round(($layak / $totalData) * 100) : 0 }}%
+
+                </span>
+
+            </div>
+
+            {{-- TIDAK LAYAK --}}
+            <div class="stat-mini-card">
+
+                <div class="mini-icon orange-bg">
+                    <i class="fas fa-times"></i>
+                </div>
+
+                <div>
+                    <small>Tidak Layak</small>
+                    <h3>
+                        {{ $tidakLayak }}
+                    </h3>
+                </div>
+
+                <span class="badge orange-badge">
+
+                    {{ $totalData > 0 ? round(($tidakLayak / $totalData) * 100) : 0 }}%
+
+                </span>
+
+            </div>
+
         </div>
-    </div>
 
-    <!-- Filter -->
-    <div class="filter-container">
-        <div class="search-wrapper">
-            <input type="text" id="searchInput" placeholder="Cari nama / NIK...">
+        {{-- FILTER --}}
+        <div class="filter-container">
+
+            <form action="{{ route('hasil.index') }}"
+                  method="GET"
+                  class="filter-form">
+
+                {{-- SEARCH --}}
+                <div class="search-wrapper">
+
+                    <input
+                        type="text"
+                        name="search"
+                        id="searchInput"
+                        placeholder="Cari nama / NIK..."
+                        value="{{ request('search') }}"
+                    >
+
+                </div>
+
+                <div class="filter-options">
+
+                    {{-- FILTER STATUS --}}
+                    <select name="status">
+
+                        <option value="">
+                            Semua Status
+                        </option>
+
+                        <option value="Layak"
+                            {{ request('status') == 'Layak' ? 'selected' : '' }}>
+
+                            Layak
+
+                        </option>
+
+                        <option value="Tidak Layak"
+                            {{ request('status') == 'Tidak Layak' ? 'selected' : '' }}>
+
+                            Tidak Layak
+
+                        </option>
+
+                    </select>
+
+                    {{-- FILTER GENDER --}}
+                    <select name="gender">
+
+                        <option value="">
+                            Semua Gender
+                        </option>
+
+                        <option value="Laki-laki"
+                            {{ request('gender') == 'Laki-laki' ? 'selected' : '' }}>
+
+                            Laki-laki
+
+                        </option>
+
+                        <option value="Perempuan"
+                            {{ request('gender') == 'Perempuan' ? 'selected' : '' }}>
+
+                            Perempuan
+
+                        </option>
+
+                    </select>
+
+                    {{-- BUTTON FILTER --}}
+                    <button type="submit"
+                            class="btn btn-light">
+
+                        Filter
+
+                    </button>
+
+                    {{-- RESET --}}
+                    <a href="{{ route('hasil.index') }}"
+                       class="btn-reset">
+
+                        Reset
+
+                    </a>
+
+                    <span class="results-count">
+
+                        {{ $totalData }} hasil ditemukan
+
+                    </span>
+
+                </div>
+
+            </form>
+
         </div>
 
-        <div class="filter-options">
-            <select><option>Semua Status</option></select>
-            <select><option>Semua Gender</option></select>
-            {{-- tombol reset DIHAPUS --}}
-            <span class="results-count">0 hasil ditemukan</span>
+        {{-- TABLE --}}
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr class="header-red">
+
+                        <th>No</th>
+                        <th>NIK</th>
+                        <th>Nama</th>
+                        <th>Umur</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Status Kawin</th>
+                        <th>Kewarganegaraan</th>
+                        <th>Domisili</th>
+                        <th>Status Hidup</th>
+                        <th>Hasil</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tableBody">
+
+                    @forelse ($data as $index => $item)
+
+                        <tr>
+
+                            <td>{{ $index + 1 }}</td>
+
+                            <td>{{ $item->nik }}</td>
+
+                            <td>
+                                <strong>
+                                    {{ $item->nama }}
+                                </strong>
+                            </td>
+
+                            <td>{{ $item->umur }}</td>
+
+                            {{-- GENDER --}}
+                            <td class="{{ $item->gender == 'Perempuan' ? 'pink-text' : 'blue-text' }}">
+
+                                {{ $item->gender }}
+
+                            </td>
+
+                            <td>{{ $item->status_kawin }}</td>
+
+                            <td>{{ $item->kewarganegaraan }}</td>
+
+                            <td>{{ $item->domisili }}</td>
+
+                            <td>{{ $item->status_hidup }}</td>
+
+                            {{-- HASIL --}}
+                            <td>
+
+                                @if($item->hak_pilih == 'Layak')
+
+                                    <span class="tag-layak">
+                                        Layak
+                                    </span>
+
+                                @else
+
+                                    <span class="tag-tidak">
+                                        Tidak Layak
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            {{-- KETERANGAN --}}
+                            <td>
+
+                                {{ $item->keterangan }}
+
+                            </td>
+
+                        </tr>
+
+                    {{-- @empty
+
+                        <tr>
+
+                            <td colspan="12"
+                                style="text-align:center;">
+
+                                Data hasil klasifikasi belum tersedia
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse --}}
+
+                </tbody>
+
+            </table>
+
         </div>
-    </div>
 
-    <!-- Tabel -->
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr class="header-red">
-                    <th>No</th>
-                    <th>NIK</th>
-                    <th>Nama</th>
-                    <th>Umur</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Status Kawin</th>
-                    <th>Kewarganegaraan</th>
-                    <th>Domisili</th>
-                    <th>Status Hidup</th>
-                    <th>Hak Pilih</th>
-                    <th>Status</th>
-                    <th>Keterangan</th>
-                </tr>
-            </thead>
-
-            <tbody id="tableBody">
-
-                {{-- DATA DINAMIS --}}
-                @forelse($data ?? [] as $index => $row)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $row['nik'] }}</td>
-                    <td><strong>{{ $row['nama'] }}</strong></td>
-                    <td>{{ $row['umur'] }}</td>
-                    <td>{{ $row['gender'] }}</td>
-                    <td>{{ $row['status_kawin'] }}</td>
-                    <td>{{ $row['kewarganegaraan'] }}</td>
-                    <td>{{ $row['domisili'] }}</td>
-                    <td>{{ $row['status_hidup'] }}</td>
-                    <td>{{ $row['hak_pilih'] }}</td>
-                    <td>
-                        @if($row['status'] == 'Layak')
-                            <span class="tag-layak">Layak</span>
-                        @else
-                            <span class="tag-tidak">Tidak Layak</span>
-                        @endif
-                    </td>
-                    <td>{{ $row['keterangan'] }}</td>
-                </tr>
-
-                @empty
-                <tr>
-                    <td colspan="12" style="text-align:center;">Belum ada data</td>
-                </tr>
-                @endforelse
-
-            </tbody>
-        </table>
     </div>
 
 </div>
 
 @endsection
 
-{{-- JS KHUSUS HALAMAN --}}
+
 @push('scripts')
 <script src="{{ asset('js/hasil.js') }}"></script>
 @endpush

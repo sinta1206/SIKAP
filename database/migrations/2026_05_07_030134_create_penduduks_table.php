@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('umur');
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
-            $table->string('pekerjaan'); // Sesuai permintaanmu
+            $table->string('pekerjaan'); 
             $table->string('status_kawin');
             $table->string('kewarganegaraan');
             $table->string('domisili');

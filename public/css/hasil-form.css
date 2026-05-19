@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: #f6f7fb;
+}
+
+/* WRAPPER */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* CARD */
+.form-card {
+    width: 100%;
+    max-width: 750px;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* HEADER */
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.form-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.close-btn {
+    font-size: 24px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+/* FULL WIDTH */
+.full {
+    grid-column: span 2;
+}
+
+/* INPUT */
+label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    color: #444;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #cc0000;
+}
+
+/* BUTTON */
+.form-footer {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-save {
+    background: #cc0000;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save:hover {
+    background: #a80000;
+}
+
+.btn-cancel {
+    background: #eee;
+    color: #333;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
