@@ -192,7 +192,7 @@
                     <a href="{{ route('hasil.index') }}"
                        class="btn-reset">
 
-                        Reset
+                        Tampilkan Semua
 
                     </a>
 
@@ -224,8 +224,10 @@
                         <th>Jenis Kelamin</th>
                         <th>Status Kawin</th>
                         <th>Kewarganegaraan</th>
-                        <th>Domisili</th>
+                        <th>Dusun</th>
+                        <th>Pekerjaan</th>
                         <th>Status Hidup</th>
+                        <th>Hak Pilih</th>
                         <th>Hasil</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
@@ -265,12 +267,16 @@
 
                             <td>{{ $item->domisili }}</td>
 
+                            <td>{{ $item->pekerjaan }}</td>
+
                             <td>{{ $item->status_hidup }}</td>
+
+                            <td>{{ $item->hak_pilih }}</td>
 
                             {{-- HASIL --}}
                             <td>
 
-                                @if($item->hak_pilih == 'Layak')
+                                @if($item->status == 'Layak')
 
                                     <span class="tag-layak">
                                         Layak
@@ -312,7 +318,7 @@
 
                         </tr>
 
-                    {{-- @empty
+                    @empty
 
                         <tr>
 
@@ -325,7 +331,7 @@
 
                         </tr>
 
-                    @endforelse --}}
+                    @endforelse
 
                 </tbody>
 

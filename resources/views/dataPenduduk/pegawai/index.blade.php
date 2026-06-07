@@ -108,6 +108,7 @@
 
                 {{-- TAMBAH --}}
                 <button class="btn btn-red">
+                    <a href="{{route('penduduk.create')}}" >
                     <i class="fas fa-plus"></i>
                     Tambah
                 </button>
@@ -170,9 +171,9 @@
                             <td class="action-buttons">
 
                                 {{-- EDIT --}}
-                                <button class="btn-edit">
+                                 <a href="{{ route('penduduk.edit', $penduduk->id) }}" class="btn-edit">
                                     <i class="fas fa-edit"></i>
-                                </button>
+                                </a>
 
                                 {{-- DELETE --}}
                                 <form action="{{ route('penduduk.destroy', $penduduk->id) }}"

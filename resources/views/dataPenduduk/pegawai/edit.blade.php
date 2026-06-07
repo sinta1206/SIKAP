@@ -203,8 +203,8 @@
                             Dicabut
                         </option>
 
-                        <option value="TNI/Polri"
-                            {{ old('hak_pilih', $penduduk->hak_pilih) == 'TNI/Polri' ? 'selected' : '' }}>
+                        <option value="Non Aktif"
+                            {{ old('hak_pilih', $penduduk->hak_pilih) == 'Non Aktif' ? 'selected' : '' }}>
                             TNI/Polri (Non-Aktif)
                         </option>
 

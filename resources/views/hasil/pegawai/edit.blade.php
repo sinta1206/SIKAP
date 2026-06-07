@@ -131,24 +131,24 @@
 
                         <select name="status_kawin" required>
 
-                            <option value="Belum Kawin"
-                                {{ old('status_kawin', $penduduk->status_kawin) == 'Belum Kawin' ? 'selected' : '' }}>
+                            <option value="Belum Menikah"
+                                {{ old('status_kawin', $penduduk->status_kawin) == 'Belum Menikah' ? 'selected' : '' }}>
 
-                                Belum Kawin
-
-                            </option>
-
-                            <option value="Kawin"
-                                {{ old('status_kawin', $penduduk->status_kawin) == 'Kawin' ? 'selected' : '' }}>
-
-                                Kawin
+                                Belum Menikah
 
                             </option>
 
-                            <option value="Pernah Kawin"
-                                {{ old('status_kawin', $penduduk->status_kawin) == 'Pernah Kawin' ? 'selected' : '' }}>
+                            <option value="Menikah"
+                                {{ old('status_kawin', $penduduk->status_kawin) == 'Menikah' ? 'selected' : '' }}>
 
-                                Pernah Kawin
+                                Menikah
+
+                            </option>
+
+                            <option value="Cerai"
+                                {{ old('status_kawin', $penduduk->status_kawin) == 'Cerai' ? 'selected' : '' }}>
+
+                                Cerai
 
                             </option>
 
@@ -184,7 +184,7 @@
                     {{-- DOMISILI --}}
                     <div class="form-group">
 
-                        <label>Domisili</label>
+                        <label>Dusun</label>
 
                         <input type="text"
                                name="domisili"
@@ -230,25 +230,53 @@
 
                     </div>
 
+                    {{-- HAK PILIH --}}
+                    <div class="form-group">
+
+                        <label>Hak Pilih</label>
+
+                        <select name="hak_pilih">
+
+                            <option value="Aktif"
+                                {{ old('hak_pilih', $penduduk->hak_pilih) == 'Aktif' ? 'selected' : '' }}>
+
+                                Aktif
+
+                            </option>
+
+                            <option value="Non Aktif"
+                                {{ old('hak_pilih', $penduduk->hak_pilih) == 'Non Aktif' ? 'selected' : '' }}>
+
+                                TNI/Polri (Non-Aktif)
+
+                            </option>
+
+                            <option value="Dicabut"
+                                {{ old('hak_pilih', $penduduk->hak_pilih) == 'Dicabut' ? 'selected' : '' }}>
+
+                                Dicabut
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
                     {{-- HASIL --}}
                     <div class="form-group">
 
                         <label>Hasil Klasifikasi</label>
 
-                        <select name="hak_pilih" required>
+                        <select name="status" required>
 
                             <option value="Layak"
-                                {{ old('hak_pilih', $penduduk->hak_pilih) == 'Layak' ? 'selected' : '' }}>
-
+                                {{ old('status', $penduduk->status) == 'Layak' ? 'selected' : '' }}>
                                 Layak
-
                             </option>
 
                             <option value="Tidak Layak"
-                                {{ old('hak_pilih', $penduduk->hak_pilih) == 'Tidak Layak' ? 'selected' : '' }}>
-
+                                {{ old('status', $penduduk->status) == 'Tidak Layak' ? 'selected' : '' }}>
                                 Tidak Layak
-
                             </option>
 
                         </select>

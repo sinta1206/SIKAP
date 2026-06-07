@@ -11,13 +11,13 @@ class HasilController extends Controller
 {
     public function index(Request $request)
     {
-        $sudahKlasifikasi = Penduduk::whereNotNull('hak_pilih')->exists();
+        $sudahKlasifikasi = Penduduk::whereNotNull('status')->exists();
 
         if (!$sudahKlasifikasi) {
             return view('hasil.empty');
         }
 
-        $query = Penduduk::query();
+        $query = Penduduk::whereNotNull('status');
 
         // Fitur Pencarian (Nama atau NIK)
         if ($request->filled('search')) {
@@ -34,15 +34,15 @@ class HasilController extends Controller
 
         // Fitur Filter Status Kelayakan
         if ($request->filled('status')) {
-            $query->where('hak_pilih', $request->status);
+            $query->where('status', $request->status);
         }
 
         $data = $query->get();
 
         // Hitung Ringkasan Data untuk Card
         $totalData = $data->count();
-        $layak = $data->where('hak_pilih', 'Layak')->count();
-        $tidakLayak = $data->where('hak_pilih', 'Tidak Layak')->count();
+        $layak = $data->where('status', 'Layak')->count();
+        $tidakLayak = $data->where('status', 'Tidak Layak')->count();
 
         $viewPath = (Auth::user()->role == 'pegawai_desa') ? 'hasil.pegawai.index' : 'hasil.panitia.index';
 
@@ -67,7 +67,9 @@ class HasilController extends Controller
             'kewarganegaraan' => 'required',
             'domisili' => 'required',
             'pekerjaan' => 'required',
+            'status_hidup' => 'required|string',
             'hak_pilih' => 'required',
+            'status' => 'required',
             'keterangan' => 'required',
         ]);
 
@@ -95,7 +97,9 @@ class HasilController extends Controller
             'kewarganegaraan' => 'required',
             'domisili' => 'required',
             'pekerjaan' => 'required',
+            'status_hidup' => 'required',
             'hak_pilih' => 'required',
+            'status' => 'required',
             'keterangan' => 'required',
         ]);
 
@@ -107,7 +111,7 @@ class HasilController extends Controller
     // FITUR UNDUH CSV
     public function export()
     {
-        $list = Penduduk::whereNotNull('hak_pilih')->get();
+        $list = Penduduk::whereNotNull('status')->get();
 
         return (new FastExcel($list))->download('hasil_klasifikasi_pemilu.csv', function ($p) {
             return [
@@ -118,7 +122,10 @@ class HasilController extends Controller
                 'Status Kawin'    => $p->status_kawin,
                 'Kewarganegaraan' => $p->kewarganegaraan,
                 'Domisili'        => $p->domisili,
-                'Status'          => $p->hak_pilih,
+                'Pekerjaan'       => $p->pekerjaan,
+                'Status Hidup'    => $p->status_hidup,
+                'Hak Pilih'       => $p->hak_pilih,
+                'Hasil'           => $p->status,
                 'Keterangan'      => $p->keterangan,
             ];
         });

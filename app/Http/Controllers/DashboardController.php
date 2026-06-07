@@ -24,8 +24,8 @@ class DashboardController extends Controller
 
         //Mengambil hitungan data penduduk untuk komponen Card
         $totalData = Penduduk::count();
-        $layak = Penduduk::where('hak_pilih', 'Layak')->count();
-        $tidakLayak = Penduduk::where('hak_pilih', 'Tidak Layak')->count();
+        $layak = Penduduk::where('status', 'Layak')->count();
+        $tidakLayak = Penduduk::where('status', 'Tidak Layak')->count();
 
         // Menghitung persentase kelayakan tingkat partisipasi
         $persentaseLayak = $totalData > 0 ? round(($layak / $totalData) * 100) : 0;

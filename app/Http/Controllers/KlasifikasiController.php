@@ -12,8 +12,8 @@ class KlasifikasiController extends Controller
     {
         // 1. Ambil Ringkasan Data
         $totalData = Penduduk::count();
-        $layak = Penduduk::where('hak_pilih', 'Layak')->count();
-        $tidakLayak = Penduduk::where('hak_pilih', 'Tidak Layak')->count();
+        $layak = Penduduk::where('status', 'Layak')->count();
+        $tidakLayak = Penduduk::where('status', 'Tidak Layak')->count();
 
         return view('klasifikasi.index', compact('totalData', 'layak', 'tidakLayak'));
     }
@@ -25,15 +25,15 @@ class KlasifikasiController extends Controller
             return redirect()->back()->with('error', 'Hanya Pegawai Desa yang dapat menjalankan proses ini.');
         }
 
-        // 3. Ambil semua data penduduk
-        $penduduks = Penduduk::all();
+        // 3. Ambil semua data penduduk yang belum diklasifikasi (status = null)
+        $penduduks = Penduduk::whereNull('status')->get();
 
         foreach ($penduduks as $p) {
             $isLayak = true;
             $alasan = []; // Tempat menampung alasan jika tidak layak
 
             // 1. Kriteria Umur & Perkawinan
-            if (!($p->umur >= 17 || $p->status_kawin === 'Kawin' || $p->status_kawin === 'Pernah Kawin')) {
+            if (!($p->umur >= 17 || $p->status_kawin === 'Menikah' || $p->status_kawin === 'Cerai')) {
                 $isLayak = false;
                 $alasan[] = 'Umur < 17 thn & Belum Menikah';
             }
@@ -50,17 +50,17 @@ class KlasifikasiController extends Controller
                 $alasan[] = 'Sudah Meninggal';
             }
 
-            // 4. Kriteria Pekerjaan (TNI/Polri)
-            $pekerjaan = strtoupper(trim($p->pekerjaan));
-            if ($pekerjaan === 'TNI' || $pekerjaan === 'POLRI' || $pekerjaan === 'POLISI') {
+            // 4. Status Hak Pilih
+            if ($p->hak_pilih !== 'Aktif') {
                 $isLayak = false;
-                $alasan[] = 'Anggota Aktif ' . $pekerjaan;
-            }
 
-             // 5. Kriteria Hak Pilih Dicabut secara Hukum (Ditinjau dari kolom internal)
-            if ($p->hak_pilih_internal === 'Dicabut') {
-                $isLayak = false;
-                $alasan[] = 'Hak Pilih Dicabut Hukum';
+                if ($p->hak_pilih === 'Non Aktif') {
+                    $alasan[] = 'Hak Pilih Non Aktif (Anggota TNI/Polri)';
+                }
+
+                if ($p->hak_pilih === 'Dicabut') {
+                    $alasan[] = 'Hak Pilih Dicabut Hukum';
+                }
             }
 
             // Tentukan hasil akhir
@@ -69,8 +69,8 @@ class KlasifikasiController extends Controller
 
             // Update ke database
             $p->update([
-                'hak_pilih'  => $statusAkhir,
-                'keterangan' => $keteranganAkhir
+                'status'      => $statusAkhir,
+                'keterangan'  => $keteranganAkhir
             ]);
     }
 

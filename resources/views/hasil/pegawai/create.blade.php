@@ -79,9 +79,9 @@
                         <label>Status Kawin</label>
                         <select name="status_kawin" required>
                             <option value="">Pilih</option>
-                            <option value="Belum Kawin">Belum Kawin</option>
-                            <option value="Kawin">Kawin</option>
-                            <option value="Pernah Kawin">Pernah Kawin</option>
+                            <option value="Belum Kawin">Belum Menikah</option>
+                            <option value="Menikah">Menikah</option>
+                            <option value="Cerai">Cerai</option>
                         </select>
                     </div>
 
@@ -97,7 +97,7 @@
 
                     {{-- DOMISILI --}}
                     <div class="form-group">
-                        <label>Domisili</label>
+                        <label>Dusun</label>
                         <input type="text" name="domisili" value="{{ old('domisili') }}" required>
                     </div>
 
@@ -116,14 +116,26 @@
                         </select>
                     </div>
 
+                    {{-- HAK PILIH --}}
+                    <div class="form-group">
+                        <label>Hak Pilih</label>
+                        <select name="hak_pilih" required>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Non Aktif">TNI/Polri (Non-Aktif)</option>
+                            <option value="Dicabut">Dicabut</option>
+                        </select>
+                    </div>
+
                     {{-- HASIL --}}
                     <div class="form-group">
                         <label>Hasil Klasifikasi</label>
-                        <select name="hak_pilih" required>
+                        <select name="status" required>
                             <option value="Layak">Layak</option>
                             <option value="Tidak Layak">Tidak Layak</option>
                         </select>
                     </div>
+
+
 
                     {{-- KETERANGAN --}}
                     <div class="form-group full-width">

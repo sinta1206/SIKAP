@@ -28,7 +28,7 @@
             <span>Dashboard</span>
         </a>
 
-        <a href="{{ url('/import') }}" class="nav-item {{ request()->is('import') ? 'active' : '' }}">
+         <a href="{{ route('penduduk.index') }}" class="nav-item {{ request()->routeIs('penduduk.index') ? 'active' : '' }}">
             <i class="fa-solid fa-upload"></i>
             <span>Data Penduduk</span>
         </a>
@@ -45,11 +45,12 @@
 
     </nav>
 
-    <!-- Profile -->
-    <div class="profile-card">
+   <!-- Profile -->
+    <div class="profile-card" onclick="openProfile()">
         <div class="avatar">
             <i class="fa-solid fa-user"></i>
         </div>
+
         <div class="profile-info">
             <h3>{{ auth()->user()->name }}</h3>
             <p>

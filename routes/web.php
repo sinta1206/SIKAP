@@ -4,6 +4,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\KlasifikasiController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\HasilController;
 use Illuminate\Support\Facades\Route;
 
 // Login
@@ -18,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
     // --- FITUR KELOLA PENDUDUK ---
     // Menampilkan daftar penduduk
     Route::get('/penduduk', [PendudukController::class, 'index'])->name('penduduk.index');
+    // tambah data manual
+    Route::get('/penduduk/create', [PendudukController::class, 'create'])->name('penduduk.create');
     // Simpan data manual
     Route::post('/penduduk/store', [PendudukController::class, 'store'])->name('penduduk.store');
     // Import file Excel/CSV
@@ -50,7 +54,10 @@ Route::middleware(['auth'])->group(function () {
     // 6. Proses Update / Memperbarui Data dari Form Edit ke Database
     Route::put('/hasil/{id}', [HasilController::class, 'update'])->name('hasil.update');
 
-    // Route Profile (Jika nanti diaktifkan kembali)
-    // Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    // Route::put('/profile', [ProfileController::class, 'updatePassword'])->name('profile.update');
+    // --- FITUR PROFILE ---
+    // Route untuk update Username
+    Route::post('/profil/update-username', [ProfilController::class, 'updateUsername'])->name('profil.username.update');
+    // Route untuk update Password
+    Route::post('/profil/update-password', [ProfilController::class, 'updatePassword'])->name('profil.password.update');
+
 });
