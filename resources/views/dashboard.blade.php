@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="header-btns">
+        {{-- <div class="header-btns">
             <a href="{{ route('penduduk.index') }}" class="btn btn-red">
                 Import Data
             </a>
@@ -28,7 +28,34 @@
             <a href="{{ route('hasil.index') }}" class="btn btn-light">
                 Lihat Hasil
             </a>
+        </div> --}}
+
+        <div class="header-btns">
+
+            @if(auth()->user()->role == 'pegawai_desa')
+
+                <a href="{{ route('penduduk.index') }}" class="btn btn-red">
+                    Import Data
+                </a>
+
+                <a href="{{ route('hasil.index') }}" class="btn btn-light">
+                    Lihat Hasil
+                </a>
+
+            @elseif(auth()->user()->role == 'panitia_pemilu')
+
+                <a href="{{ route('penduduk.index') }}" class="btn btn-red">
+                    Data Penduduk
+                </a>
+
+                <a href="{{ route('hasil.index') }}" class="btn btn-light">
+                    Unduh Hasil
+                </a>
+
+            @endif
+
         </div>
+
     </header>
 
     <!-- STATISTIK -->
@@ -107,7 +134,7 @@
             <div class="card-wave blue-text">
                 <i class="fas fa-heartbeat"></i>
             </div>
-            
+
         </div>
 
     </div>
@@ -120,7 +147,9 @@
             <span>Aksi Cepat</span>
         </div>
 
-        <div class="action-list">
+
+        {{-- Action-list --}}
+        {{-- <div class="action-list">
 
             <a href="{{ route('penduduk.index') }}" class="action-item">
                 <div class="action-icon bg-red-light">
@@ -169,22 +198,115 @@
                 </div>
             </a>
 
-            <div class="action-item">
-                <div class="action-icon bg-blue-light">
-                    <i class="fas fa-tasks"></i>
-                </div>
 
 
-                <div class="action-info">
-                    <strong>Kelola Kriteria</strong>
-                    <p>Aturan klasifikasi sistem</p>
-                </div>
+        </div> --}}
 
-                <div class="action-arrow">
-                    <i class="fas fa-chevron-right"></i>
+        <div class="action-list">
 
-               </div>
-            </div>
+            {{-- PEGAWAI DESA --}}
+            @if(auth()->user()->role == 'pegawai_desa')
+
+                {{-- Import Data --}}
+                <a href="{{ route('penduduk.index') }}" class="action-item">
+                    <div class="action-icon bg-red-light">
+                        <i class="fas fa-file-import"></i>
+                    </div>
+
+                    <div class="action-info">
+                        <strong>Import Data Penduduk</strong>
+                        <p>Kelola data penduduk</p>
+                    </div>
+
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                {{-- Klasifikasi --}}
+                <a href="{{ route('klasifikasi.index') }}" class="action-item">
+                    <div class="action-icon bg-purple-light">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+
+                    <div class="action-info">
+                        <strong>Jalankan Klasifikasi</strong>
+                        <p>Proses data otomatis</p>
+                    </div>
+
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                {{-- Hasil --}}
+                <a href="{{ route('hasil.index') }}" class="action-item">
+                    <div class="action-icon bg-green-light">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+
+                    <div class="action-info">
+                        <strong>Lihat Hasil</strong>
+                        <p>Tabel & status kelayakan</p>
+                    </div>
+
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+            {{-- PANITIA PEMILU --}}
+            @elseif(auth()->user()->role == 'panitia_pemilu')
+
+                {{-- Data Penduduk --}}
+                <a href="{{ route('penduduk.index') }}" class="action-item">
+                    <div class="action-icon bg-blue-light">
+                        <i class="fas fa-users"></i>
+                    </div>
+
+                    <div class="action-info">
+                        <strong>Lihat Data Penduduk</strong>
+                        <p>Data pemilih desa</p>
+                    </div>
+
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                {{-- Unduh Hasil --}}
+                <a href="{{ route('hasil.index') }}" class="action-item">
+                    <div class="action-icon bg-orange-light">
+                        <i class="fas fa-download"></i>
+                    </div>
+
+                    <div class="action-info">
+                        <strong>Unduh Hasil</strong>
+                        <p>Export hasil klasifikasi</p>
+                    </div>
+
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                {{-- Lihat Hasil --}}
+                <a href="{{ route('hasil.index') }}" class="action-item">
+                    <div class="action-icon bg-green-light">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+
+                    <div class="action-info">
+                        <strong>Lihat Hasil</strong>
+                        <p>Monitoring hasil klasifikasi</p>
+                    </div>
+
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+            @endif
 
         </div>
 

@@ -66,9 +66,17 @@
             Data hasil klasifikasi pemilih belum tersedia. Silakan tambahkan atau lakukan proses klasifikasi terlebih dahulu.
         </div>
 
-        <a href="{{ route('hasil.create') }}" class="empty-btn">
+        {{-- <a href="{{ route('hasil.create') }}" class="empty-btn">
             + Tambah Data
-        </a>
+        </a> --}}
+
+        @if(auth()->user()->role == 'pegawai_desa')
+
+            <a href="{{ route('hasil.create') }}" class="empty-btn">
+                + Tambah Data
+            </a>
+
+        @endif
 
     </div>
 

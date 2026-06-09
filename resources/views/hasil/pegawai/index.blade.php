@@ -135,7 +135,7 @@
                 <div class="filter-options">
 
                     {{-- FILTER STATUS --}}
-                    <select name="status">
+                    {{-- <select name="status">
 
                         <option value="">
                             Semua Status
@@ -155,7 +155,7 @@
 
                         </option>
 
-                    </select>
+                    </select> --}}
 
                     {{-- FILTER GENDER --}}
                     <select name="gender">
@@ -231,6 +231,7 @@
                         <th>Hasil</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
+
 
                     </tr>
 

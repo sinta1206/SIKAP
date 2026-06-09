@@ -1,22 +1,23 @@
 @extends('layouts.layoutMain')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/hasil-form.css') }}">
+<link rel="stylesheet" href="{{ asset('css/editPenduduk.css') }}">
 @endpush
 
 @section('content')
 
-<div class="edit-hasil-page">
+<div class="editPenduduk-page">
 
-    <div class="container">
+
+
 
         <div class="form-card">
 
             {{-- HEADER --}}
-            <div class="form-header">
+            <header class="form-header">
 
                 <div>
-                    <h1>Edit Hasil Klasifikasi</h1>
+                    <h2>Edit Hasil Klasifikasi</h2>
                     <p class="subtitle">
                         Perbarui data hasil klasifikasi pemilih
                     </p>
@@ -29,7 +30,7 @@
 
                 </a>
 
-            </div>
+            </header>
 
             {{-- ALERT ERROR --}}
             @if ($errors->any())
@@ -284,7 +285,7 @@
                     </div>
 
                     {{-- KETERANGAN --}}
-                    <div class="form-group full-width">
+                    <div class="form-group">
 
                         <label>Keterangan</label>
 
@@ -301,15 +302,7 @@
                 {{-- BUTTON --}}
                 <div class="form-footer">
 
-                    <a href="{{ route('hasil.index') }}"
-                       class="btn btn-cancel">
-
-                        Batal
-
-                    </a>
-
-                    <button type="submit"
-                            class="btn btn-submit">
+                    <button type="submit" class="btn-submit">
 
                         <i class="fas fa-save"></i>
                         Simpan Perubahan
@@ -322,12 +315,12 @@
 
         </div>
 
-    </div>
+
 
 </div>
 
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/hasil-form.js') }}"></script>
+<script src="{{ asset('js/editPenduduk.js') }}"></script>
 @endpush

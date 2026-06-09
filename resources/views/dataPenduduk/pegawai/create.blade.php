@@ -199,7 +199,7 @@
                 </div>
 
                 {{-- HAK PILIH --}}
-                <div class="form-group full-width">
+                <div class="form-group">
                     <label>Hak Pilih</label>
 
                     <select name="hak_pilih">

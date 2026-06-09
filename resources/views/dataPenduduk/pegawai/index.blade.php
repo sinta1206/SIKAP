@@ -20,8 +20,13 @@
 
             <div class="header-right">
 
-                <a href="{{ route('penduduk.create') }}" class="btn btn-primary">
+                {{-- <a href="{{ route('penduduk.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Tambah Data
+                </a> --}}
+
+                <a href="{{ route('penduduk.create') }}" class="btn-add-data">
+                    <i class="fas fa-plus"></i>
+                    <span>Tambah Data</span>
                 </a>
 
             </div>
@@ -246,7 +251,7 @@
                 <div class="filter-options">
 
                     {{-- FILTER STATUS --}}
-                    <select name="status">
+                    {{-- <select name="status">
 
                         <option value="">
                             Semua Status
@@ -266,7 +271,7 @@
 
                         </option>
 
-                    </select>
+                    </select> --}}
 
                     {{-- FILTER GENDER --}}
                     <select name="gender">

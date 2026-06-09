@@ -1,22 +1,22 @@
 @extends('layouts.layoutMain')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/hasil-form.css') }}">
+<link rel="stylesheet" href="{{ asset('css/editPenduduk.css') }}">
 @endpush
 
 @section('content')
 
-<div class="create-hasil-page">
+<div class="editPenduduk-page">
 
-    <div class="container">
+
 
         <div class="form-card">
 
             {{-- HEADER --}}
-            <div class="form-header">
+            <header class="form-header">
 
                 <div>
-                    <h1>Tambah Hasil Klasifikasi</h1>
+                    <h2>Tambah Hasil Klasifikasi</h2>
                     <p class="subtitle">
                         Input data hasil klasifikasi pemilih baru
                     </p>
@@ -26,7 +26,7 @@
                     &times;
                 </a>
 
-            </div>
+            </header>
 
             {{-- ERROR VALIDASI --}}
             @if ($errors->any())
@@ -138,7 +138,7 @@
 
 
                     {{-- KETERANGAN --}}
-                    <div class="form-group full-width">
+                    <div class="form-group">
                         <label>Keterangan</label>
                         <input type="text" name="keterangan" value="{{ old('keterangan') }}" required>
                     </div>
@@ -148,12 +148,11 @@
                 {{-- BUTTON --}}
                 <div class="form-footer">
 
-                    <a href="{{ route('hasil.index') }}" class="btn btn-cancel">
-                        Batal
-                    </a>
+                    <button type="submit" class="btn-submit">
 
-                    <button type="submit" class="btn btn-submit">
-                        Simpan Data
+                        <i class="fas fa-save"></i>
+                        Simpan Perubahan
+
                     </button>
 
                 </div>
@@ -162,12 +161,12 @@
 
         </div>
 
-    </div>
+
 
 </div>
 
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/hasil-form.js') }}"></script>
+<script src="{{ asset('js/editPenduduk.js') }}"></script>
 @endpush

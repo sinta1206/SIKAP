@@ -5,10 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', () => {
 
-        submitBtn.classList.add('loading');
+        submitBtn.classList.add('ng');
 
         submitBtn.innerHTML = 'Menyimpan...';
 
     });
 
 });
+
