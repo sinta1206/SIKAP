@@ -42,26 +42,108 @@
 
         </div>
 
-        {{-- TABLE --}}
-        <div class="table-container">
 
-            <div class="table-header">
+        {{-- FILTER --}}
+        <div class="filter-container">
+
+            <form action="{{ route('hasil.index') }}"
+                  method="GET"
+                  class="filter-form">
 
                 {{-- SEARCH --}}
-                <form action="{{ route('penduduk.index') }}"
-                      method="GET"
-                      class="search-box">
+                <div class="search-wrapper">
 
                     <input
                         type="text"
                         name="search"
-                        placeholder="Cari nama atau NIK..."
+                        id="searchInput"
+                        placeholder="Cari nama / NIK..."
                         value="{{ request('search') }}"
                     >
 
-                </form>
+                </div>
 
-            </div>
+                <div class="filter-options">
+
+                    {{-- FILTER STATUS --}}
+                    <select name="status">
+
+                        <option value="">
+                            Semua Status
+                        </option>
+
+                        <option value="Layak"
+                            {{ request('status') == 'Layak' ? 'selected' : '' }}>
+
+                            Layak
+
+                        </option>
+
+                        <option value="Tidak Layak"
+                            {{ request('status') == 'Tidak Layak' ? 'selected' : '' }}>
+
+                            Tidak Layak
+
+                        </option>
+
+                    </select>
+
+                    {{-- FILTER GENDER --}}
+                    <select name="gender">
+
+                        <option value="">
+                            Semua Gender
+                        </option>
+
+                        <option value="Laki-laki"
+                            {{ request('gender') == 'Laki-laki' ? 'selected' : '' }}>
+
+                            Laki-laki
+
+                        </option>
+
+                        <option value="Perempuan"
+                            {{ request('gender') == 'Perempuan' ? 'selected' : '' }}>
+
+                            Perempuan
+
+                        </option>
+
+                    </select>
+
+                    {{-- BUTTON FILTER --}}
+                    <button type="submit"
+                            class="btn btn-light">
+
+                        Filter
+
+                    </button>
+
+                    {{-- RESET --}}
+                    <a href="{{ route('hasil.index') }}"
+                       class="btn-reset">
+
+                        Reset
+
+                    </a>
+
+                    <span class="results-count">
+
+                        {{ $totalData }} hasil ditemukan
+
+                    </span>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        {{-- TABLE --}}
+        <div class="table-container">
+
+
 
             <table>
 

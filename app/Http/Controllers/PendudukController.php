@@ -41,7 +41,7 @@ class PendudukController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nik' => 'required|digits:16|unique:penduduks,nik',
+            'nik' => ['required', 'digits:16', 'regex:/^[0-9]{16}$/', 'unique:penduduks,nik'],
             'nama' => 'required|string',
             'umur' => 'required|numeric',
             'gender' => 'required',
@@ -211,7 +211,7 @@ class PendudukController extends Controller
         $penduduk = Penduduk::findOrFail($id);
 
         $validated = $request->validate([
-            'nik' => 'required|digits:16|unique:penduduks,nik,' . $id,
+            'nik' => ['required', 'digits:16', 'regex:/^[0-9]{16}$/', 'unique:penduduks,nik,' . $id],
             'nama' => 'required|string',
             'umur' => 'required|numeric',
             'gender' => 'required',

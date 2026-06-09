@@ -20,3 +20,42 @@ document.querySelectorAll('.nav-item').forEach(item => {
         }
     });
 });
+
+// Ripple Effect Profile Card
+const profileCard = document.querySelector('.profile-card');
+
+if(profileCard){
+
+    profileCard.addEventListener('click', function(e){
+
+        const circle = document.createElement('span');
+
+        const diameter = Math.max(
+            this.clientWidth,
+            this.clientHeight
+        );
+
+        circle.style.width = circle.style.height = diameter + 'px';
+
+        circle.style.left =
+            e.clientX -
+            this.getBoundingClientRect().left -
+            diameter / 2 + 'px';
+
+        circle.style.top =
+            e.clientY -
+            this.getBoundingClientRect().top -
+            diameter / 2 + 'px';
+
+        circle.classList.add('ripple');
+
+        const ripple = this.querySelector('.ripple');
+
+        if(ripple){
+            ripple.remove();
+        }
+
+        this.appendChild(circle);
+    });
+
+}

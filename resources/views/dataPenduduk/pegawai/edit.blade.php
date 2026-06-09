@@ -51,6 +51,9 @@
                         name="nik"
                         value="{{ old('nik', $penduduk->nik) }}"
                         placeholder="Masukkan 16 digit NIK"
+                        maxlength="16"
+                        pattern="[0-9]{16}"
+                        inputmode="numeric"
                         required
                     >
                 </div>

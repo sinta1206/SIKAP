@@ -1,88 +1,99 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const searchInput = document.getElementById('searchInput');
+    const tableBody = document.getElementById('tableBody');
+    const resultCount = document.querySelector('.results-count');
+
     // =========================
-    // SEARCH TABLE
+    // LIVE SEARCH
     // =========================
-    const searchInput = document.querySelector('.search-box input');
+    if(searchInput && tableBody){
 
-    if(searchInput){
+        const rows = tableBody.querySelectorAll('tr');
 
-        searchInput.addEventListener('input', function () {
+        searchInput.addEventListener('keyup', () => {
 
-            const searchText = this.value.toLowerCase();
+            const keyword = searchInput.value.toLowerCase();
+            let count = 0;
 
-            const tableRows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
 
-            tableRows.forEach(row => {
+                if(row.cells.length < 3) return;
 
-                // Hindari error kalau row kosong
-                if(row.cells.length > 2){
+                const nik =
+                    row.cells[1].textContent.toLowerCase();
 
-                    const nikText = row.cells[1].textContent.toLowerCase();
-                    const namaText = row.cells[2].textContent.toLowerCase();
+                const nama =
+                    row.cells[2].textContent.toLowerCase();
 
-                    if (
-                        nikText.includes(searchText) ||
-                        namaText.includes(searchText)
-                    ) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-
+                if(
+                    nik.includes(keyword) ||
+                    nama.includes(keyword)
+                ){
+                    row.style.display = '';
+                    count++;
+                }
+                else{
+                    row.style.display = 'none';
                 }
 
             });
+
+            if(resultCount){
+                resultCount.textContent =
+                    `${count} hasil ditemukan`;
+            }
 
         });
 
     }
 
     // =========================
-    // DELETE CONFIRMATION
+    // DELETE CONFIRM
     // =========================
-    const deleteButtons = document.querySelectorAll('.btn-delete');
+    document
+        .querySelectorAll('.btn-delete')
+        .forEach(btn => {
 
-    deleteButtons.forEach(button => {
+            btn.addEventListener('click', (e) => {
 
-        button.addEventListener('click', function (e) {
+                if(
+                    !confirm(
+                        'Yakin ingin menghapus data ini?'
+                    )
+                ){
+                    e.preventDefault();
+                }
 
-            const confirmDelete = confirm('Yakin ingin menghapus data ini?');
-
-            if(!confirmDelete){
-                e.preventDefault();
-            }
+            });
 
         });
-
-    });
 
     // =========================
     // DRAG & DROP UPLOAD
     // =========================
-    const dropzone = document.getElementById('dropzone');
-    const fileInput = document.getElementById('fileInput');
+    const dropzone =
+        document.querySelector('.upload-area');
+
+    const fileInput =
+        document.getElementById('fileInput');
 
     if(dropzone && fileInput){
 
-        // Klik upload
-        dropzone.addEventListener('click', () => {
-            fileInput.click();
-        });
+        dropzone.addEventListener('dragover', e => {
 
-        // Drag over
-        dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropzone.classList.add('dragover');
+
         });
 
-        // Drag leave
         dropzone.addEventListener('dragleave', () => {
+
             dropzone.classList.remove('dragover');
+
         });
 
-        // Drop file
-        dropzone.addEventListener('drop', (e) => {
+        dropzone.addEventListener('drop', e => {
 
             e.preventDefault();
 
@@ -94,10 +105,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 fileInput.files = files;
 
-                // Auto submit form upload
-                fileInput.closest('form').submit();
+                fileInput
+                    .closest('form')
+                    .submit();
 
             }
+
+        });
+
+    }
+
+    // =========================
+    // ROW CLICK EFFECT
+    // =========================
+    if(tableBody){
+
+        tableBody.addEventListener('click', e => {
+
+            const row = e.target.closest('tr');
+
+            if(!row) return;
+
+            row.style.backgroundColor =
+                '#f0f7ff';
+
+            setTimeout(() => {
+
+                row.style.backgroundColor = '';
+
+            }, 250);
 
         });
 

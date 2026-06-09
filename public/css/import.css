@@ -539,3 +539,205 @@ tbody tr:hover{
     }
 
 }
+
+/* ==================================
+   FILTER (SAMA SEPERTI HALAMAN HASIL)
+================================== */
+
+.filter-container{
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+}
+
+.filter-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.search-wrapper input{
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    width: 300px;
+    background: #fdfdfd;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-wrapper input:focus{
+    border-color: #ef4444;
+}
+
+.filter-options{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-options select{
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    color: #666;
+    outline: none;
+}
+
+.btn-reset{
+    text-decoration: none;
+    color: #ef4444;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.results-count{
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 10px;
+}
+
+/* ==================================
+   FILTER STYLE (VERSI HASIL)
+================================== */
+
+.filter-container{
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+}
+
+.filter-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.search-wrapper{
+    flex: 1;
+}
+
+.search-wrapper input{
+    width: 100%;
+    max-width: 320px;
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s;
+    background: #fafafa;
+}
+
+.search-wrapper input:focus{
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239,68,68,.1);
+}
+
+.filter-options{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-options select{
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    color: #555;
+    outline: none;
+    transition: 0.3s;
+}
+
+.filter-options select:focus{
+    border-color: #ef4444;
+}
+
+.btn-light{
+    background: white;
+    border: 1px solid #ddd;
+    color: #555;
+}
+
+.btn-light:hover{
+    background: #f9f9f9;
+}
+
+.btn-reset{
+    text-decoration: none;
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.btn-reset:hover{
+    text-decoration: underline;
+}
+
+.results-count{
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* UPLOAD DRAG ACTIVE */
+
+.upload-area.dragover{
+    background: #fef2f2;
+    border: 2px dashed #ef4444;
+    transform: scale(1.02);
+}
+
+/* HEADER TABLE MERAH SEPERTI HASIL */
+
+table thead tr{
+    background: #cc0000;
+}
+
+table thead th{
+    color: white;
+    background: transparent;
+    border-bottom: none;
+}
+
+/* TABLE EFFECT */
+
+tbody tr{
+    transition: .25s;
+}
+
+tbody tr:hover{
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .filter-form{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-wrapper input{
+        max-width: 100%;
+    }
+
+    .filter-options{
+        width: 100%;
+    }
+
+    .results-count{
+        margin-top: 5px;
+    }
+}
