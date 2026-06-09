@@ -147,6 +147,13 @@ class PendudukController extends Controller
                     );
                 }
 
+                // CEK STATUS KAWIN
+                if (!in_array($statusKawin, ['Belum Menikah', 'Sudah Menikah', 'Cerai'])) {
+                    throw new \Exception(
+                        "Baris {$baris}: Status Kawin harus Belum Menikah, Sudah Menikah, atau Cerai."
+                    );
+                }
+
                 // CEK KEWARGANEGARAAN
                 if (!in_array($kewarganegaraan, ['WNI', 'WNA'])) {
                     throw new \Exception(

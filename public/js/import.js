@@ -139,4 +139,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+
 });
+
+function toggleInfo(id)
+{
+    const allBoxes =
+        document.querySelectorAll('.detail-box');
+
+    allBoxes.forEach(box => {
+
+        if(box.id !== id){
+            box.style.display = 'none';
+        }
+
+    });
+
+    const selected =
+        document.getElementById(id);
+
+    if(selected.style.display === 'block'){
+        selected.style.display = 'none';
+    }else{
+        selected.style.display = 'block';
+    }
+}
+
+function closeInfo(id)
+{
+    document.getElementById(id).style.display = 'none';
+}

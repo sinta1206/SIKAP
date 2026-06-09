@@ -20,16 +20,9 @@
 
             <div class="header-right">
 
-                {{-- TEMPLATE --}}
-                <button class="btn btn-gray">
-                    <i class="fas fa-file-csv"></i>
-                    Template CSV
-                </button>
-
-                {{-- RESET --}}
-                <button class="btn btn-gray">
-                    Reset Data
-                </button>
+                <a href="{{ route('penduduk.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Tambah Data
+                </a>
 
             </div>
         </header>
@@ -69,27 +62,166 @@
             </div>
         </form>
 
-        {{-- INFO --}}
-        <div class="info-box">
-            <i class="fas fa-circle-info"></i>
+    {{-- INFO FORMAT IMPORT --}}
+    <div class="info-box">
 
-            <div class="info-content">
-                <p>Format Data Yang Diperlukan</p>
+        <i class="fas fa-circle-info"></i>
 
-                <div class="tags">
-                    <span>NIK</span>
-                    <span>Nama</span>
-                    <span>Umur</span>
-                    <span>Jenis Kelamin</span>
-                    <span>Pekerjaan</span>
-                    <span>Status Kawin</span>
-                    <span>Kewarganegaraan</span>
-                    <span>Dusun</span>
-                    <span>Status Hidup</span>
-                    <span>Hak Pilih</span>
-                </div>
+        <div class="info-content">
+
+            <p>Format Data Import yang Diperlukan</p>
+
+            <p class="info-hint">
+                Klik salah satu kolom untuk melihat format data dan nilai yang valid sebelum melakukan import file Excel atau CSV.
+            </p>
+
+            <div class="tags">
+
+                <span class="info-tag" onclick="toggleInfo('nik')">NIK</span>
+
+                <span class="info-tag" onclick="toggleInfo('nama')">Nama</span>
+
+                <span class="info-tag" onclick="toggleInfo('umur')">Umur</span>
+
+                <span class="info-tag" onclick="toggleInfo('jk')">
+                    Jenis Kelamin
+                </span>
+
+                <span class="info-tag" onclick="toggleInfo('pekerjaan')">
+                    Pekerjaan
+                </span>
+
+                <span class="info-tag" onclick="toggleInfo('kawin')">
+                    Status Kawin
+                </span>
+
+                <span class="info-tag" onclick="toggleInfo('wn')">
+                    Kewarganegaraan
+                </span>
+
+                <span class="info-tag" onclick="toggleInfo('dusun')">
+                    Dusun
+                </span>
+
+                <span class="info-tag" onclick="toggleInfo('hidup')">
+                    Status Hidup
+                </span>
+
+                <span class="info-tag" onclick="toggleInfo('hak')">
+                    Hak Pilih
+                </span>
+
             </div>
+
+            {{-- DETAIL INFO --}}
+
+            <div id="nik" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('nik')">
+                    ✕ Tutup
+                </button>
+                <strong>NIK</strong>
+                <p>Harus terdiri dari tepat 16 digit angka.</p>
+                <small>Contoh: 1171080917050001</small>
+            </div>
+
+            <div id="nama" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('nama')">
+                    ✕ Tutup
+                </button>
+                <strong>Nama</strong>
+                <p>Nama lengkap penduduk.</p>
+                <small>Contoh: Siti Aisyah</small>
+            </div>
+
+            <div id="umur" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('umur')">
+                    ✕ Tutup
+                </button>
+                <strong>Umur</strong>
+                <p>Diisi dalam bentuk angka tanpa satuan tahun.</p>
+                <small>Contoh: 25</small>
+            </div>
+
+            <div id="jk" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('jk')">
+                    ✕ Tutup
+                </button>
+                <strong>Jenis Kelamin</strong>
+                <p>Hanya boleh:</p>
+                <small>Laki-laki atau Perempuan</small>
+            </div>
+
+            <div id="pekerjaan" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('pekerjaan')">
+                    ✕ Tutup
+                </button>
+                <strong>Pekerjaan</strong>
+                <p>Isi sesuai pekerjaan penduduk.</p>
+                <small>Contoh: Petani, Guru, Buruh, Pedagang</small>
+            </div>
+
+            <div id="kawin" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('kawin')">
+                    ✕ Tutup
+                </button>
+                <strong>Status Kawin</strong>
+                <p>Hanya boleh:</p>
+                <small>
+                    Belum Menikah / Sudah Menikah / Cerai
+                </small>
+            </div>
+
+            <div id="wn" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('wn')">
+                    ✕ Tutup
+                </button>
+                <strong>Kewarganegaraan</strong>
+                <p>Hanya boleh:</p>
+                <small>WNI atau WNA</small>
+            </div>
+
+            <div id="dusun" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('dusun')">
+                    ✕ Tutup
+                </button>
+                <strong>Dusun</strong>
+                <p>Nama dusun tempat domisili penduduk.</p>
+                <small>Contoh: Dusun Mawar</small>
+            </div>
+
+            <div id="hidup" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('hidup')">
+                    ✕ Tutup
+                </button>
+                <strong>Status Hidup</strong>
+                <p>Hanya boleh:</p>
+                <small>Hidup atau Meninggal</small>
+            </div>
+
+            <div id="hak" class="detail-box">
+                <button class="close-detail"
+                        onclick="closeInfo('hak')">
+                    ✕ Tutup
+                </button>
+                <strong>Hak Pilih</strong>
+                <p>Hanya boleh:</p>
+                <small>
+                    Aktif / Non Aktif / Dicabut
+                </small>
+            </div>
+
         </div>
+
+    </div>
 
 {{-- FILTER --}}
 <div class="filter-container">
@@ -206,7 +338,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Pekerjaan</th>
                         <th>Status Kawin</th>
-                        <th>Warganegara</th>
+                        <th>Kewarganegara</th>
                         <th>Dusun</th>
                         <th>Status Hidup</th>
                         <th>Hak Pilih</th>
