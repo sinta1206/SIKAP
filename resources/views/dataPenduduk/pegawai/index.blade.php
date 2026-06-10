@@ -29,6 +29,14 @@
                     <span>Tambah Data</span>
                 </a>
 
+                {{-- RESET --}}
+                    <button
+                        type="button"
+                        class="btn-reset1"
+                        id="resetTrigger">
+                        Reset
+                    </button>
+
             </div>
         </header>
 
@@ -304,13 +312,12 @@
 
                     </button>
 
-                    {{-- RESET --}}
-                    <button
-                        type="button"
-                        class="btn-reset"
-                        id="resetTrigger">
-                        Reset
-                    </button>
+                    <a href="{{ route('penduduk.index') }}"
+                       class="btn-reset">
+
+                        Tampilkan Semua
+
+                    </a>
 
                     <span class="results-count">
 

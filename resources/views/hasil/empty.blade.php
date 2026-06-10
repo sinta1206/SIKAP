@@ -70,13 +70,9 @@
             + Tambah Data
         </a> --}}
 
-        @if(auth()->user()->role == 'pegawai_desa')
 
-            <a href="{{ route('hasil.create') }}" class="empty-btn">
-                + Tambah Data
-            </a>
+        
 
-        @endif
 
     </div>
 

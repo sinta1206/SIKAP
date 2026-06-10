@@ -11,23 +11,52 @@ use Illuminate\Support\Facades\Log;
 class PendudukController extends Controller
 {
     // Menampilkan data untuk Pegawai & Panitia
+        // public function index(Request $request)
+        // {
+        //     $search = $request->input('search');
+        //     $query = Penduduk::query();
+
+        //     if ($search) {
+        //         $query->where('nama', 'LIKE', "%{$search}%")
+        //               ->orWhere('nik', 'LIKE', "%{$search}%");
+        //     }
+
+        //     $data = $query->get();
+        //     $totalData = $data->count();
+
+        //     // Cek Role
+        //     if (Auth::user()->role == 'pegawai_desa') {
+        //         return view('dataPenduduk.pegawai.index', compact('data', 'totalData'));
+        //     }
+        //     return view('dataPenduduk.panitia.index', compact('data', 'totalData'));
+        // }
+
     public function index(Request $request)
     {
-        $search = $request->input('search');
+
         $query = Penduduk::query();
 
-        if ($search) {
-            $query->where('nama', 'LIKE', "%{$search}%")
-                  ->orWhere('nik', 'LIKE', "%{$search}%");
+        // Search
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('nik', 'LIKE', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter Gender
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
         }
 
         $data = $query->get();
         $totalData = $data->count();
 
-        // Cek Role
+        
         if (Auth::user()->role == 'pegawai_desa') {
             return view('dataPenduduk.pegawai.index', compact('data', 'totalData'));
         }
+
         return view('dataPenduduk.panitia.index', compact('data', 'totalData'));
     }
 
@@ -253,5 +282,5 @@ class PendudukController extends Controller
             ->route('penduduk.index')
             ->with('success', 'Semua data penduduk berhasil direset.');
     }
-    
+
 }

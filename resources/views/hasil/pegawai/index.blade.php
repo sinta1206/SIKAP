@@ -188,7 +188,7 @@
 
                     </button>
 
-                    {{-- RESET --}}
+                    {{-- Tampilkan semua --}}
                     <a href="{{ route('hasil.index') }}"
                        class="btn-reset">
 
@@ -349,3 +349,5 @@
 @push('scripts')
 <script src="{{ asset('js/hasil.js') }}"></script>
 @endpush
+
+

@@ -21,6 +21,18 @@
                 </p>
             </div>
 
+            <div class="header-right">
+
+                {{-- RESET --}}
+                    <button
+                        type="button"
+                        class="btn-reset1"
+                        id="resetTrigger">
+                        Reset
+                    </button>
+
+            </div>
+
         </header>
 
         {{-- INFO --}}
@@ -41,12 +53,13 @@
             </div>
 
         </div>
+        
 
 
         {{-- FILTER --}}
         <div class="filter-container">
 
-            <form action="{{ route('hasil.index') }}"
+            <form action="{{ route('penduduk.index') }}"
                   method="GET"
                   class="filter-form">
 
@@ -119,11 +132,11 @@
 
                     </button>
 
-                    {{-- RESET --}}
-                    <a href="{{ route('hasil.index') }}"
+                    {{-- tampilkan semua --}}
+                    <a href="{{ route('penduduk.index') }}"
                        class="btn-reset">
 
-                        Reset
+                        Tampilkan Semua
 
                     </a>
 
@@ -216,12 +229,59 @@
                 </tbody>
 
             </table>
+            <form
+                id="resetForm"
+                action="{{ route('penduduk.reset') }}"
+                method="POST"
+                style="display:none;"
+            >
+                @csrf
+                @method('DELETE')
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- RESET MODAL -->
+    <div class="delete-modal" id="resetModal">
+
+        <div class="delete-modal-content">
+
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+
+            <h3>Reset Semua Data?</h3>
+
+            <p>
+                Semua data penduduk akan dihapus permanen dan tidak dapat dikembalikan.
+            </p>
+
+            <div class="delete-actions">
+
+                <button
+                    type="button"
+                    class="btn-cancel-delete"
+                    id="cancelReset">
+                    Batal
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-confirm-delete"
+                    id="confirmReset">
+                    Ya, Reset Semua
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
 </div>
+
 
 @endsection
 

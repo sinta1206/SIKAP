@@ -783,22 +783,97 @@ tbody tr:hover{
     background: #f9f9f9;
 }
 
-.btn-reset{
+/* ==================================
+   BUTTON RESET PREMIUM
+================================== */
+
+.btn-reset1{
+    position: relative;
+    overflow: hidden;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 18px;
+
     border: none;
-    background: transparent;
-    color: #ef4444;
-    font-weight: 600;
-    cursor: pointer;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #fee2e2,
+        #fecaca
+    );
+
+    color: #dc2626;
+
     font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all .3s ease;
+
+    box-shadow:
+        0 4px 12px rgba(239,68,68,.12);
 }
 
-.btn-reset:hover{
-    text-decoration: underline;
+.btn-reset1:hover{
+    transform: translateY(-3px);
+
+    background: linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+
+    color: white;
+
+    box-shadow:
+        0 12px 25px rgba(239,68,68,.30);
+}
+
+.btn-reset1:active{
+    transform: scale(.96);
+}
+
+.btn-reset1::before{
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.4),
+            transparent
+        );
+
+    transition: .7s;
+}
+
+.btn-reset1:hover::before{
+    left: 150%;
 }
 
 .results-count{
     font-size: 0.85rem;
     color: #888;
+}
+
+.btn-reset{
+    text-decoration: none;
+    color: #ef4444;
+    font-weight: 600;
+    margin-left: 5px;
 }
 
 /* UPLOAD DRAG ACTIVE */
