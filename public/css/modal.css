@@ -125,6 +125,7 @@
 }
 
 .close-btn{
+    color: white;
     font-size: 28px;
     cursor: pointer;
     transition: .25s;
