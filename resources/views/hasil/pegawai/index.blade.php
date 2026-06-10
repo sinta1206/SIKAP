@@ -25,15 +25,7 @@
 
             <div class="header-right">
 
-                {{-- TAMBAH DATA --}}
-                <a href="{{ route('hasil.create') }}"
-                   class="btn btn-blue">
-
-                    <i class="fas fa-plus"></i>
-                    Tambah Data
-
-                </a>
-
+                
                 {{-- EXPORT CSV --}}
                 <a href="{{ route('hasil.export') }}"
                    class="btn btn-green">
