@@ -49,25 +49,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================
-    // DELETE CONFIRM
+    // DELETE MODAL
     // =========================
+
+    const deleteModal =
+        document.getElementById('deleteModal');
+
+    const confirmDelete =
+        document.getElementById('confirmDelete');
+
+    const cancelDelete =
+        document.getElementById('cancelDelete');
+
+    let selectedForm = null;
+
     document
-        .querySelectorAll('.btn-delete')
+        .querySelectorAll('.delete-trigger')
         .forEach(btn => {
 
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', e => {
 
-                if(
-                    !confirm(
-                        'Yakin ingin menghapus data ini?'
-                    )
-                ){
-                    e.preventDefault();
-                }
+                e.preventDefault();
+
+                selectedForm =
+                    btn.closest('form');
+
+                deleteModal.classList.add('show');
 
             });
 
         });
+
+    cancelDelete?.addEventListener('click', () => {
+
+        deleteModal.classList.remove('show');
+
+    });
+
+    confirmDelete?.addEventListener('click', () => {
+
+        if(selectedForm){
+            selectedForm.submit();
+        }
+
+    });
+
+    deleteModal?.addEventListener('click', e => {
+
+        if(e.target === deleteModal){
+            deleteModal.classList.remove('show');
+        }
+
+    });
+
 
     // =========================
     // DRAG & DROP UPLOAD

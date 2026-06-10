@@ -186,7 +186,7 @@
                     <a href="{{ route('hasil.index') }}"
                        class="btn-reset">
 
-                        Reset
+                        Tampilkan Semua
 
                     </a>
 
@@ -224,7 +224,7 @@
                         <th>Hak Pilih</th>
                         <th>Hasil</th>
                         <th>Keterangan</th>
-                
+
 
                     </tr>
 

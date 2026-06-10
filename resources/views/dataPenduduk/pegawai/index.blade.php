@@ -402,8 +402,7 @@
 
                                     <button
                                         type="submit"
-                                        class="btn-delete"
-                                        onclick="return confirm('Yakin ingin menghapus data ini?')"
+                                        class="btn-delete delete-trigger"
                                     >
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -428,8 +427,47 @@
 
             </table>
 
+
         </div>
     </div>
+    <!-- DELETE MODAL -->
+<div class="delete-modal" id="deleteModal">
+
+    <div class="delete-modal-content">
+
+        <div class="delete-icon">
+            <i class="fas fa-trash-alt"></i>
+        </div>
+
+        <h3>Hapus Data?</h3>
+
+        <p>
+            Data yang dihapus tidak dapat dikembalikan lagi.
+        </p>
+
+        <div class="delete-actions">
+
+            <button
+                type="button"
+                class="btn-cancel-delete"
+                id="cancelDelete"
+            >
+                Batal
+            </button>
+
+            <button
+                type="button"
+                class="btn-confirm-delete"
+                id="confirmDelete"
+            >
+                Ya, Hapus
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 </div>
 
 @endsection

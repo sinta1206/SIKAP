@@ -15,7 +15,7 @@ body{
 /* PAGE */
 
 .dataPenduduk-page{
-    padding: 40px 20px;
+    padding: 20px;
 }
 
 .container{
@@ -957,4 +957,110 @@ tbody tr:hover{
     .results-count{
         margin-top: 5px;
     }
+}
+
+/* ==========================
+   DELETE MODAL
+========================== */
+
+.delete-modal{
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,.45);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .3s;
+    z-index: 9999;
+}
+
+.delete-modal.show{
+    opacity: 1;
+    visibility: visible;
+}
+
+.delete-modal-content{
+    background: white;
+    width: 90%;
+    max-width: 420px;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    transform: scale(.9);
+    transition: .3s;
+}
+
+.delete-modal.show .delete-modal-content{
+    transform: scale(1);
+}
+
+.delete-icon{
+    width: 80px;
+    height: 80px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: #fee2e2;
+    color: #ef4444;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 32px;
+}
+
+.delete-modal-content h3{
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.delete-modal-content p{
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+.delete-actions{
+    display: flex;
+    gap: 12px;
+}
+
+.btn-cancel-delete,
+.btn-confirm-delete{
+    flex: 1;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.btn-cancel-delete{
+    background: #f3f4f6;
+}
+
+.btn-cancel-delete:hover{
+    background: #e5e7eb;
+}
+
+.btn-confirm-delete{
+    background: #ef4444;
+    color: white;
+}
+
+.btn-confirm-delete:hover{
+    background: #dc2626;
 }
