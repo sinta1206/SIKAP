@@ -42,6 +42,38 @@
             <span class="close-btn" onclick="closeProfile()">&times;</span>
         </div>
 
+        <div class="profile-user">
+
+            <div class="profile-avatar">
+                {{ strtoupper(substr(auth()->user()->username, 0, 1)) }}
+            </div>
+
+            <h4>{{ auth()->user()->username }}</h4>
+
+            <span class="profile-role">
+                <i class="fas fa-user-shield"></i>
+
+                {{ auth()->user()->role == 'pegawai_desa'
+                    ? 'Pegawai Desa'
+                    : 'Panitia Pemilu' }}
+            </span>
+
+            <div class="profile-stats">
+
+                <div class="stat-item">
+                    <i class="fas fa-user"></i>
+                    <span>Akun Aktif</span>
+                </div>
+
+                <div class="stat-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SIKAP</span>
+                </div>
+
+            </div>
+
+        </div>
+
         <!-- TAB -->
         <div class="profile-tabs">
             <button class="tab-btn active" onclick="showTab('username')">Username</button>
