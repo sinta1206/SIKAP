@@ -104,6 +104,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================
+    // RESET MODAL
+    // =========================
+
+    const resetModal =
+        document.getElementById('resetModal');
+
+    const resetTrigger =
+        document.getElementById('resetTrigger');
+
+    const cancelReset =
+        document.getElementById('cancelReset');
+
+    const confirmReset =
+        document.getElementById('confirmReset');
+
+    const resetForm =
+        document.getElementById('resetForm');
+
+    resetTrigger?.addEventListener('click', () => {
+
+        resetModal.classList.add('show');
+
+    });
+
+    cancelReset?.addEventListener('click', () => {
+
+        resetModal.classList.remove('show');
+
+    });
+
+    confirmReset?.addEventListener('click', () => {
+
+        resetForm.submit();
+
+    });
+
+    resetModal?.addEventListener('click', e => {
+
+        if(e.target === resetModal){
+            resetModal.classList.remove('show');
+        }
+
+    });
+
+
+    // =========================
     // DRAG & DROP UPLOAD
     // =========================
     const dropzone =

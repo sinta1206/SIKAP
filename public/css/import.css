@@ -784,9 +784,12 @@ tbody tr:hover{
 }
 
 .btn-reset{
-    text-decoration: none;
+    border: none;
+    background: transparent;
     color: #ef4444;
     font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .btn-reset:hover{

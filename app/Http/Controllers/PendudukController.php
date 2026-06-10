@@ -243,4 +243,15 @@ class PendudukController extends Controller
         Penduduk::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
+
+    // Reset Data
+    public function resetData()
+    {
+        Penduduk::truncate();
+
+        return redirect()
+            ->route('penduduk.index')
+            ->with('success', 'Semua data penduduk berhasil direset.');
+    }
+    
 }

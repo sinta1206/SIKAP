@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/penduduk/{id}/edit', [PendudukController::class, 'edit'])->name('penduduk.edit');
     // Proses Update Data Penduduk
     Route::put('/penduduk/{id}', [PendudukController::class, 'update'])->name('penduduk.update');
+    // Reset Data Penduduk
+    Route::delete('/penduduk/reset', [PendudukController::class, 'resetData'])
+    ->name('penduduk.reset');
     // Hapus data penduduk
     Route::delete('/penduduk/{id}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
     // -----------------------------
